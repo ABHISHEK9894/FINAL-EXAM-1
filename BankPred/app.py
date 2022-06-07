@@ -4,7 +4,7 @@ from flask import Flask,render_template,request
 import pickle
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras.model import load_model
+from tensorflow.python.keras.models import load_model
 import os
 import numpy as np
 import warnings
@@ -17,14 +17,14 @@ def run_model(array):
 	array = array[None,:]
 	model = load_model(location)
 	prediction = np.argmax(model.predict(array))
-
+	return np.where(prediction >=0.5,1,0)
 
 # 	scaler = pickle.load(open('model/scaler','rb'))
 # 	
 # 	model = tf.keras.models.load_model(location)
 # 	scaled_feat = scaler.transform(array)
 # 	prediction = model.predict(scaled_feat)
-return np.where(prediction >=0.5,1,0)
+	
 
 # scaler = pickle.load(open('model/scaler','rb'))
 # location = os.getcwd() + '\\model'
